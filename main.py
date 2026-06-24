@@ -1,3 +1,4 @@
+import os
 import sys
 import pygame
 import time
@@ -10,6 +11,13 @@ from Puzzle import generate_scramble, calculate_wca_average, calculate_wca_ao100
 from Times import (init_db, format_solve_time, Solve, insert_solve_data, fetch_tab_data, clear_tab_data, fetch_data_by_id,
                    check_solve_time, get_solve_list, delete_data_by_id, fetch_single_best, store_average_best, update_average_best,
                    fetch_average_best, clear_average_data, plus_two_solve, dnf_solve)
+
+
+def get_asset_path(relative_path):
+    #Get the absolute path to a sound file. Added for the making of .exe file (deployment)
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 
 class SpeedCubeTimer(QMainWindow):
@@ -55,8 +63,11 @@ class SpeedCubeTimer(QMainWindow):
         #Sound for fun
         pygame.mixer.init()
         try:
-            self.succeeded_audio = pygame.mixer.Sound("goodboy.wav")
-            self.failed_audio = pygame.mixer.Sound("fahh.wav")
+            good_path = get_asset_path("goodboy.wav")
+            fail_path = get_asset_path("fahh.wav")
+
+            self.succeeded_audio = pygame.mixer.Sound(good_path)
+            self.failed_audio = pygame.mixer.Sound(fail_path)
             self.audio_loaded = True
         except Exception:
             self.audio_loaded = False
