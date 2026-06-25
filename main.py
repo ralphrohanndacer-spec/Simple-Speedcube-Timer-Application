@@ -118,7 +118,6 @@ class SpeedCubeTimer(QMainWindow):
 
         self.puzzle_tab.addItems(["2x2", "3x3", "4x4", "5x5"])
         sessions = [str(i) for i in range(1, 16)]
-        sessions.append("+")
         self.session_tab.addItems(sessions)
 
         self.time_limit_input.setPlaceholderText("Enter")
