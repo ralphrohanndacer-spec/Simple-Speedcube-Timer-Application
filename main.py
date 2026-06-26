@@ -138,10 +138,11 @@ class SpeedCubeTimer(QMainWindow):
         self.best_records_view.setCornerButtonEnabled(False)
         self.best_records_view.horizontalHeader().setSectionsClickable(False)
 
-        self.best_records_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.best_records_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.solve_list_view.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
 
         self.best_records_view.setMaximumWidth(160)
+        self.best_records_view.setMaximumHeight(150)
         self.solve_list_view.setMaximumWidth(160)
 
         self.scramble_label.setWordWrap(True)
