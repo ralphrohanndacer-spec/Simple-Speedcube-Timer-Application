@@ -65,9 +65,13 @@ class SpeedCubeTimer(QMainWindow):
         try:
             good_path = get_asset_path("goodboy.wav")
             fail_path = get_asset_path("fahh.wav")
+            eight_path = get_asset_path("8seconds.wav")
+            twelve_path = get_asset_path("12seconds.wav")
 
             self.succeeded_audio = pygame.mixer.Sound(good_path)
             self.failed_audio = pygame.mixer.Sound(fail_path)
+            self.eight_secs_audio = pygame.mixer.Sound(eight_path)
+            self.twelve_secs_audio = pygame.mixer.Sound(twelve_path)
             self.audio_loaded = True
         except Exception:
             self.audio_loaded = False
@@ -385,6 +389,17 @@ class SpeedCubeTimer(QMainWindow):
         else:
             seconds_left = int((inspection_left_ms - 2000) / 1000)
             self.time_label.setText(str(seconds_left + 1))
+
+            #Extract and calculate the ms part ex: 9990 % 1000 = 990 to avoid audio lag
+            remainder_ms = (inspection_left_ms % 1000) >= 990
+
+            if remainder_ms:
+                if seconds_left + 1 == 8:
+                    if self.audio_loaded:
+                        self.eight_secs_audio.play()
+                elif seconds_left + 1 == 4:
+                    if self.audio_loaded:
+                        self.twelve_secs_audio.play()
 
     #Saves solve data
     def save_solve(self, final_time_ms, is_dnf):
